@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
+  Bars2Icon,
   BellIcon,
   MagnifyingGlassIcon,
   MapPinIcon,
@@ -22,8 +23,10 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   const [activeCategory, setActiveCategory] = useState(1);
   return (
     <View className="flex-1 relative bg-white">
@@ -36,19 +39,24 @@ export default function HomeScreen() {
       <SafeAreaView className="flex-1">
         {/*Avatar and bell icons*/}
         <View className="px-4 flex-row justify-between items-center">
-          <Image
-            source={require("../assets/images/avatar.png")}
-            className="w-9 h-9 rounded-full"
-          />
+          <TouchableOpacity
+            className="p-2 bg-white rounded-xl shadow-xl"
+            onPress={() => navigation.openDrawer()}
+          >
+            <Bars2Icon stroke={50} size={25} color={themeColors.bgDark} />
+          </TouchableOpacity>
           <View className="flex-row items-center space-x-2">
             <MapPinIcon size={25} color={themeColors.bgLight} />
             <Text className="text-base font-semibold">New York,NYC</Text>
           </View>
-          <BellIcon size={27} color="black" />
+          <Image
+            source={require("../assets/images/avatar.png")}
+            className="w-9 h-9 rounded-full"
+          />
         </View>
 
         {/* Search bar */}
-        <View className="mx-5 mt-14 md:mt-10">
+        <View className="mx-5" style={{ marginTop: hp(3) }}>
           <View className="flex-row justify-center items-center p-1 rounded-full bg-[#e6e6e6]">
             <TextInput
               placeholder="Search"
@@ -57,6 +65,7 @@ export default function HomeScreen() {
             <TouchableOpacity
               className="rounded-full p-2"
               style={{ backgroundColor: themeColors.bgLight }}
+              onPress={() => navigation.openDrawer()}
             >
               <MagnifyingGlassIcon size={25} color={"white"} strokeWidth={2} />
             </TouchableOpacity>

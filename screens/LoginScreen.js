@@ -121,11 +121,13 @@ export default function LoginScreen() {
     firebase
       .auth()
       .signInWithCredential(credential)
-      .then(() => {
+      .then((data) => {
         setCode("");
+        console.log("data", data);
       })
       .catch((err) => {
         //show error
+        console.log("err", err);
         alert(err);
       });
     Alert.alert("Login Successfully");
